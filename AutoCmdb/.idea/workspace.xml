@@ -183,8 +183,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="504" />
-    <option name="y" value="111" />
+    <option name="x" value="117" />
+    <option name="y" value="30" />
     <option name="width" value="1296" />
     <option name="height" value="707" />
   </component>
@@ -299,7 +299,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.jfgj">
+  <component name="RunManager" selected="Django server.AutoCmdb">
     <configuration name="gg" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AutoCmdb" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -346,7 +346,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="AutoCmdb.settings" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="F:\python.exe" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />

@@ -5,8 +5,7 @@
 function initBusiness() {
     var options = {
         credits: {
-            // text: 'oldboyedu',
-            // href: 'http://www.oldboyedu.com'
+  
         },
         chart: {
             type: 'column',

@@ -30,12 +30,12 @@ def get_untreated_servers():
         condition.add(con_date, 'AND')
         condition.add(con_status, 'AND')
 
-        result = modelss.Server.objects.filter(condition).values('hostname')
+        result = models.Server.objects.filter(condition).values('hostname')
         response.data = list(result)
         response.status = True
     except Exception as e:
         response.message = str(e)
-        modelss.ErrorLog.objects.create(asset_obj=None, title='get_untreated_servers', content=traceback.format_exc())
+        models.ErrorLog.objects.create(asset_obj=None, title='get_untreated_servers', content=traceback.format_exc())
     return response
 
 
@@ -86,11 +86,11 @@ class HandleBasic(object):
 
             server_obj.save()
             if log_list:
-                modelss.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj,
+                models.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj,
                                                    content=';'.join(log_list))
         except Exception as e:
             response.status = False
-            modelss.ErrorLog.objects.create(asset_obj=server_obj.asset, title='basic-run',
+            models.ErrorLog.objects.create(asset_obj=server_obj.asset, title='basic-run',
                                             content=traceback.format_exc())
         return response
 
@@ -101,10 +101,10 @@ class HandleBasic(object):
             current_date = datetime.date.today()
             server_obj.asset.latest_date = current_date
             server_obj.asset.save()
-            modelss.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj, content='资产汇报')
+            models.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj, content='资产汇报')
         except Exception as e:
             response.status = False
-            modelss.ErrorLog.objects.create(asset_obj=server_obj.asset, title='basic-run',
+            models.ErrorLog.objects.create(asset_obj=server_obj.asset, title='basic-run',
                                             content=traceback.format_exc())
 
         return response
@@ -125,11 +125,11 @@ class HandleNic(object):
             nic_info = server_info['nic']
             if not nic_info['status']:
                 response.status = False
-                modelss.ErrorLog.objects.create(asset_obj=server_obj.asset, title='nic-agent', content=nic_info['error'])
+                models.ErrorLog.objects.create(asset_obj=server_obj.asset, title='nic-agent', content=nic_info['error'])
                 return response
 
             client_nic_dict = nic_info['data']
-            nic_obj_list = modelss.NIC.objects.filter(server_obj=server_obj)
+            nic_obj_list = models.NIC.objects.filter(server_obj=server_obj)
             nic_name_list = map(lambda x: x, (item.name for item in nic_obj_list))
 
             update_list = agorithm.get_intersection(set(client_nic_dict.keys()), set(nic_name_list))
@@ -145,7 +145,7 @@ class HandleNic(object):
 
         except Exception as e:
             response.status = False
-            modelss.ErrorLog.objects.create(asset_obj=server_obj.asset, title='nic-run', content=traceback.format_exc())
+            models.ErrorLog.objects.create(asset_obj=server_obj.asset, title='nic-run', content=traceback.format_exc())
 
         return response
 
@@ -156,8 +156,8 @@ class HandleNic(object):
             cur_nic_dict['name'] = item
             log_str = '[新增网卡]{name}:mac地址为{hwaddr};状态为{up};掩码为{netmask};IP地址为{ipaddrs}'.format(**cur_nic_dict)
             cur_nic_dict['server_obj'] = server_obj
-            modelss.NIC.objects.create(**cur_nic_dict)
-            modelss.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj, content=log_str)
+            models.NIC.objects.create(**cur_nic_dict)
+            models.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj, content=log_str)
 
 
     @staticmethod
@@ -166,7 +166,7 @@ class HandleNic(object):
             if item.name in del_list:
                 log_str = '[移除网卡]{name}:mac地址为{hwaddr};状态为{up};掩码为{netmask};IP地址为{ipaddrs}'.format(**item.__dict__)
                 item.delete()
-                modelss.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj, content=log_str)
+                models.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj, content=log_str)
 
 
     @staticmethod
@@ -197,7 +197,7 @@ class HandleNic(object):
 
                 item.save()
                 if log_list:
-                    modelss.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj,
+                    models.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj,
                                                        content=';'.join(log_list))
 
 
@@ -213,14 +213,14 @@ class HandleMemory(object):
         try:
             mem_info = server_info['memory']
             if not mem_info['status']:
-                modelss.ErrorLog.objects.create(asset_obj=server_obj.asset, title='memory-agent',
+                models.ErrorLog.objects.create(asset_obj=server_obj.asset, title='memory-agent',
                                                 content=mem_info['error'])
                 response.status = False
                 return response
 
             client_mem_dict = mem_info['data']
 
-            mem_obj_list = modelss.Memory.objects.filter(server_obj=server_obj)
+            mem_obj_list = models.Memory.objects.filter(server_obj=server_obj)
 
             mem_slots = map(lambda x: x, (item.slot for item in mem_obj_list))
 
@@ -233,7 +233,7 @@ class HandleMemory(object):
             HandleMemory._del_memory(del_list, mem_obj_list, server_obj, user_obj)
         except Exception as e:
             response.status = False
-            modelss.ErrorLog.objects.create(asset_obj=server_obj.asset, title='memory-run',
+            models.ErrorLog.objects.create(asset_obj=server_obj.asset, title='memory-run',
                                             content=traceback.format_exc())
 
         return response
@@ -245,8 +245,8 @@ class HandleMemory(object):
             log_str = '[新增内存]插槽为{slot};容量为{capacity};类型为{model};速度为{speed};厂商为{manufacturer};SN号为{sn}'.format(
                 **cur_mem_dict)
             cur_mem_dict['server_obj'] = server_obj
-            modelss.Memory.objects.create(**cur_mem_dict)
-            modelss.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj, content=log_str)
+            models.Memory.objects.create(**cur_mem_dict)
+            models.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj, content=log_str)
 
 
     @staticmethod
@@ -256,7 +256,7 @@ class HandleMemory(object):
                 log_str = '[移除内存]插槽为{slot};容量为{capacity};类型为{model};速度为{speed};厂商为{manufacturer};SN号为{sn}'.format(
                     **item.__dict__)
                 item.delete()
-                modelss.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj, content=log_str)
+                models.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj, content=log_str)
 
 
     @staticmethod
@@ -292,7 +292,7 @@ class HandleMemory(object):
 
                 item.save()
                 if log_list:
-                    modelss.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj,
+                    models.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj,
                                                        content=';'.join(log_list))
 
 
@@ -309,13 +309,13 @@ class HandleDisk(object):
             disk_info = server_info['disk']
             if not disk_info['status']:
                 response.status = False
-                modelss.ErrorLog.objects.create(asset_obj=server_obj.asset, title='disk-agent',
+                models.ErrorLog.objects.create(asset_obj=server_obj.asset, title='disk-agent',
                                                 content=disk_info['error'])
                 return response
 
             client_disk_dict = disk_info['data']
 
-            disk_obj_list = modelss.Disk.objects.filter(server_obj=server_obj)
+            disk_obj_list = models.Disk.objects.filter(server_obj=server_obj)
 
             disk_slots = map(lambda x: x, (item.slot for item in disk_obj_list))
 
@@ -329,7 +329,7 @@ class HandleDisk(object):
 
         except Exception as e:
             response.status = False
-            modelss.ErrorLog.objects.create(asset_obj=server_obj.asset, title='disk-run', content=traceback.format_exc())
+            models.ErrorLog.objects.create(asset_obj=server_obj.asset, title='disk-run', content=traceback.format_exc())
         return response
 
     @staticmethod
@@ -338,8 +338,8 @@ class HandleDisk(object):
             cur_disk_dict = client_disk_dict[item]
             log_str = '[新增硬盘]插槽为{slot};容量为{capacity};硬盘类型为{pd_type};型号为{model}'.format(**cur_disk_dict)
             cur_disk_dict['server_obj'] = server_obj
-            modelss.Disk.objects.create(**cur_disk_dict)
-            modelss.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj, content=log_str)
+            models.Disk.objects.create(**cur_disk_dict)
+            models.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj, content=log_str)
 
 
     @staticmethod
@@ -348,7 +348,7 @@ class HandleDisk(object):
             if item.slot in del_list:
                 log_str = '[移除硬盘]插槽为{slot};容量为{capacity};硬盘类型为{pd_type};型号为{model}'.format(**item.__dict__)
                 item.delete()
-                modelss.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj, content=log_str)
+                models.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj, content=log_str)
 
 
     @staticmethod
@@ -375,6 +375,6 @@ class HandleDisk(object):
 
                 item.save()
                 if log_list:
-                    modelss.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj,
+                    models.AssetRecord.objects.create(asset_obj=server_obj.asset, creator=user_obj,
                                                        content=';'.join(log_list))
 

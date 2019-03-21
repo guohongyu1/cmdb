@@ -120,23 +120,23 @@ class Asset(BaseServiceList):
 
     @property
     def device_status_list(self):
-        result = map(lambda x: {'id': x[0], 'name': x[1]}, modelss.Asset.device_status_choices)
+        result = map(lambda x: {'id': x[0], 'name': x[1]}, models.Asset.device_status_choices)
         return list(result)
 
     @property
     def device_type_list(self):
-        result = map(lambda x: {'id': x[0], 'name': x[1]}, modelss.Asset.device_type_choices)
+        result = map(lambda x: {'id': x[0], 'name': x[1]}, models.Asset.device_type_choices)
         return list(result)
 
     @property
     def idc_list(self):
-        values = modelss.IDC.objects.only('id', 'name', 'floor')
+        values = models.IDC.objects.only('id', 'name', 'floor')
         result = map(lambda x: {'id': x.id, 'name': "%s-%s" % (x.name, x.floor)}, values)
         return list(result)
 
     @property
     def business_unit_list(self):
-        values = modelss.BusinessUnit.objects.values('id', 'name')
+        values = models.BusinessUnit.objects.values('id', 'name')
         return list(values)
 
     @staticmethod
@@ -162,9 +162,9 @@ class Asset(BaseServiceList):
         try:
             ret = {}
             conditions = self.assets_condition(request)
-            asset_count = modelss.Asset.objects.filter(conditions).count()
+            asset_count = models.Asset.objects.filter(conditions).count()
             page_info = PageInfo(request.GET.get('pager', None), asset_count)
-            asset_list = modelss.Asset.objects.filter(conditions).extra(select=self.extra_select).values(
+            asset_list = models.Asset.objects.filter(conditions).extra(select=self.extra_select).values(
                 *self.values_list)[page_info.start:page_info.end]
 
             ret['table_config'] = self.table_config
@@ -194,7 +194,7 @@ class Asset(BaseServiceList):
         try:
             delete_dict = QueryDict(request.body, encoding='utf-8')
             id_list = delete_dict.getlist('id_list')
-            modelss.Asset.objects.filter(id__in=id_list).delete()
+            models.Asset.objects.filter(id__in=id_list).delete()
             response.message = '删除成功'
         except Exception as e:
             response.status = False
@@ -213,7 +213,7 @@ class Asset(BaseServiceList):
                 nid = row_dict.pop('nid')
                 num = row_dict.pop('num')
                 try:
-                    modelss.Asset.objects.filter(id=nid).update(**row_dict)
+                    models.Asset.objects.filter(id=nid).update(**row_dict)
                 except Exception as e:
                     response.error.append({'num': num, 'message': str(e)})
                     response.status = False
@@ -233,9 +233,9 @@ class Asset(BaseServiceList):
         response = BaseResponse()
         try:
             if device_type_id == '1':
-                response.data = modelss.Server.objects.filter(asset_id=asset_id).select_related('asset').first()
+                response.data = models.Server.objects.filter(asset_id=asset_id).select_related('asset').first()
             else:
-                response.data = modelss.NetworkDevice.objects.filter(asset_id=asset_id).select_related('asset').first()
+                response.data = models.NetworkDevice.objects.filter(asset_id=asset_id).select_related('asset').first()
 
         except Exception as e:
             response.status = False

@@ -31,23 +31,40 @@ class AssetView(View):
 
         response = asset.get_untreated_servers()
         return JsonResponse(response.__dict__)
-
     @method_decorator(auth.api_auth)
     def post(self, request, *args, **kwargs):
         """
         更新或者添加资产信息
+        :param request:
+        :param args:
+        :param kwargs:
         :return: 1000 成功;1001 接口授权失败;1002 数据库中资产不存在
         """
 
         server_info = json.loads(request.body.decode('utf-8'))
         server_info = json.loads(server_info)
+        # ret = {'code': 1000, 'message': ''}
+        # print(server_info)
         hostname = server_info['hostname']
 
         ret = {'code': 1000, 'message': '[%s]更新完成' % hostname}
-        server_obj = modelss.Server.objects.filter(hostname=hostname).select_related('asset').first()
+        # server_info 最新汇报服务器所有信息
+
+        # 根据主机名去数据库中获取相关信息
+        server_obj = models.Server.objects.filter(hostname=hostname).select_related('asset').first()
         if not server_obj:
             ret['code'] = 1002
             ret['message'] = '[%s]资产不存在' % hostname
             return JsonResponse(ret)
+
+        for k, v in config.PLUGINS_DICT.items():
+            module_path, cls_name = v.rsplit('.', 1)
+            cls = getattr(importlib.import_module(module_path), cls_name)
+            response = cls.process(server_obj, server_info, None)
+            if not response.status:
+                ret['code'] = 1003
+                ret['message'] = "[%s]资产更新异常" % hostname
+            if hasattr(cls, 'update_last_time'):
+                cls.update_last_time(server_obj, None)
 
         return JsonResponse(ret)

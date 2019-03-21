@@ -23,6 +23,7 @@ class NicPlugin(BasePlugin):
 
             self.standard(interfaces_info)
             response.data = interfaces_info
+
         except Exception as e:
             msg = "%s linux nic plugin error: %s"
             self.logger.log(msg % (self.hostname, traceback.format_exc()), False)

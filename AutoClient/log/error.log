@@ -1,27 +1,37 @@
 2017-02-21 16:51:28,612  - ERROR :  HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /asset (Caused by NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x101b6d6a0>: Failed to establish a new connection: [Errno 61] Connection refused',))
-2017-02-22 11:44:44,079  - ERROR :  HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /asset (Caused by NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x1023504a8>: Failed to establish a new connection: [Errno 61] Connection refused',))
-2017-02-22 17:29:14,336  - ERROR :  ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
-2017-02-22 18:10:43,275  - ERROR :  API授权失败
-2017-02-22 18:11:56,736  - ERROR :  API授权失败
-2017-02-22 18:12:40,274  - ERROR :  API授权失败
-2017-02-22 18:12:48,260  - ERROR :  API授权失败
-2017-02-22 18:13:55,698  - ERROR :  API授权失败
-2017-02-22 18:14:13,697  - ERROR :  API授权失败
-2017-02-22 19:02:36,583  - ERROR :  None
-2017-02-23 09:17:51,995  - ERROR :  资产不存在
-2017-02-23 09:20:58,971  - ERROR :  资产不存在
-2017-02-23 09:40:52,124  - ERROR :  资产更新异常
-2017-02-23 09:41:58,601  - ERROR :  资产更新异常
-2017-02-23 09:49:12,592  - ERROR :  资产更新异常
-2017-02-23 09:50:17,132  - ERROR :  资产更新异常
-2017-02-23 09:52:17,621  - ERROR :  资产更新异常
-2017-02-23 09:55:15,712  - ERROR :  资产更新异常
-2017-02-23 09:56:33,072  - ERROR :  资产更新异常
-2017-02-23 10:00:09,356  - ERROR :  资产更新异常
-2017-02-23 10:01:32,992  - ERROR :  资产更新异常
-2017-02-23 10:02:45,313  - ERROR :  资产更新异常
-2017-04-14 12:20:20,821  - ERROR :  失败
+2018-11-10 11:44:44,079  - ERROR :  HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /asset (Caused by NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x1023504a8>: Failed to establish a new connection: [Errno 61] Connection refused',))
+2018-11-10 17:29:14,336  - ERROR :  ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+2018-11-10 18:10:43,275  - ERROR :  API授权失败
+2018-11-10 18:11:56,736  - ERROR :  API授权失败
+2018-11-10 18:12:40,274  - ERROR :  API授权失败
+2018-11-10 18:12:48,260  - ERROR :  API授权失败
+2018-11-10 18:13:55,698  - ERROR :  API授权失败
+2018-11-10 18:14:13,697  - ERROR :  API授权失败
+2018-11-10 19:02:36,583  - ERROR :  None
+2018-11-11 09:17:51,995  - ERROR :  资产不存在
+2018-11-11 09:20:58,971  - ERROR :  资产不存在
+2018-11-11 09:40:52,124  - ERROR :  资产更新异常
+2018-11-11 09:41:58,601  - ERROR :  资产更新异常
+2018-11-11 09:49:12,592  - ERROR :  资产更新异常
+2018-11-11 09:50:17,132  - ERROR :  资产更新异常
+2018-11-11 09:52:17,621  - ERROR :  资产更新异常
+2018-11-11 09:55:15,712  - ERROR :  资产更新异常
+2018-11-11 09:56:33,072  - ERROR :  资产更新异常
+2018-11-11 10:00:09,356  - ERROR :  资产更新异常
+2018-11-11 10:01:32,992  - ERROR :  资产更新异常
+2018-11-11 10:02:45,313  - ERROR :  资产更新异常
+2018-11-11 12:20:20,821  - ERROR :  失败
 2019-02-28 11:25:22,944  - ERROR :  HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /api/asset (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x07503D50>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。'))
 2019-02-28 11:29:34,540  - ERROR :  HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /api/asset (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x07CBB750>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。'))
 2019-02-28 11:31:23,444  - ERROR :  HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /api/asset (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x074D2B70>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。'))
 2019-02-28 11:31:33,393  - ERROR :  HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /api/asset (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x075DB710>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。'))
+2019-03-21 18:30:54,811  - ERROR :  [c1.com]资产不存在
+2019-03-21 18:52:36,382  - ERROR :  [c1.com]资产不存在
+2019-03-21 18:58:31,453  - ERROR :  HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /api/asset (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x076DC830>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。'))
+2019-03-21 20:17:06,438  - ERROR :  [c1.com]资产不存在
+2019-03-21 20:37:17,500  - ERROR :  HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /api/asset (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x076DC850>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。'))
+2019-03-21 20:43:14,750  - ERROR :  HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /api/asset (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0818C790>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。'))
+2019-03-21 20:43:21,532  - ERROR :  [c1.com]资产不存在
+2019-03-21 20:50:11,172  - ERROR :  HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /api/asset (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x083CC810>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。'))
+2019-03-21 20:53:07,631  - ERROR :  [c1.com]资产不存在
+2019-03-21 21:03:03,054  - ERROR :  [c1.com]资产不存在

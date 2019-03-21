@@ -147,6 +147,7 @@ class AutoAgent(AutoBase):
         else:
             self.write_local_cert(server_info.data['hostname'])
         server_json = Json.dumps(server_info.data)
+        print(server_json)
         self.post_asset(server_json, self.callback)
 
 

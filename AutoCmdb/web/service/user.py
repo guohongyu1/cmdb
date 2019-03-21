@@ -70,10 +70,10 @@ class User(BaseServiceList):
             ret = {}
             conditions = self.assets_condition(request)
 
-            asset_count = modelss.UserProfile.objects.filter(conditions).count()
+            asset_count = models.UserProfile.objects.filter(conditions).count()
             page_info = PageInfo(request.GET.get('pager', None), asset_count)
 
-            asset_list = modelss.UserProfile.objects.filter(conditions).extra(select=self.extra_select).values(
+            asset_list = models.UserProfile.objects.filter(conditions).extra(select=self.extra_select).values(
                 *self.values_list)[page_info.start:page_info.end]
 
             ret['table_config'] = self.table_config
@@ -98,7 +98,7 @@ class User(BaseServiceList):
         try:
             delete_dict = QueryDict(request.body, encoding='utf-8')
             id_list = delete_dict.getlist('id_list')
-            modelss.UserProfile.objects.filter(id__in=id_list).delete()
+            models.UserProfile.objects.filter(id__in=id_list).delete()
             response.message = '删除成功'
             pass
         except Exception as e:
@@ -118,7 +118,7 @@ class User(BaseServiceList):
                 nid = row_dict.pop('nid')
                 num = row_dict.pop('num')
                 try:
-                    modelss.UserProfile.objects.filter(id=nid).update(**row_dict)
+                    models.UserProfile.objects.filter(id=nid).update(**row_dict)
                 except Exception as e:
                     response.error.append({'num': num, 'message': str(e)})
                     response.status = False

@@ -18,7 +18,7 @@ class Business(object):
                     (select count(id) from repository_asset as A where B.id=A.business_unit_id and A.device_type_id=2) as switch_count,
                     (select count(id) from repository_asset as A where B.id=A.business_unit_id and A.device_type_id=3) as firewall_count
                 from repository_businessunit as B"""
-            result = modelss.BusinessUnit.objects.raw(sql)
+            result = models.BusinessUnit.objects.raw(sql)
             ret = {
                 'categories': [],
                 'series': [
